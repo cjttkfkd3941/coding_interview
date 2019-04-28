@@ -1,3 +1,4 @@
+#linkedlist
 class Node:
     def __init__(self,data=None):
         self.next = None
@@ -25,6 +26,7 @@ class Node:
         return n.data
         
 
+#2.1문제(다못함ㅠ)
     def toset(self):
         n = self
         while n.next != None:
