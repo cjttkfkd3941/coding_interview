@@ -12,18 +12,23 @@ class Node:
     def pop(self,data):
         n = self
         if n.data ==data:
+            n = n.next
             return 
         while n.next != None:
             if n.next.data==data:
                 n.next = n.next.next
-                return 
+                return
             n = n.next
 
     def get(self):
         n = self
+        l = []
         while n.next!=None:
             n = n.next
-        return n.data
+            l.append(n.data)
+        print("->".join(map(str,l)))
+        return 
+
         
 
 #2.1문제(다못함ㅠ)
