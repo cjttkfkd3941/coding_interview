@@ -1,4 +1,3 @@
-#linkedlist
 class Node:
     def __init__(self,data=None):
         self.next = None
@@ -17,7 +16,7 @@ class Node:
         while n.next != None:
             if n.next.data==data:
                 n.next = n.next.next
-                return
+                return 
             n = n.next
 
     def get(self):
@@ -27,20 +26,70 @@ class Node:
             n = n.next
             l.append(n.data)
         print("->".join(map(str,l)))
-        return 
+        return
 
-        
-
-#2.1문제(다못함ㅠ)
-    def toset(self):
+    def toset1(self):
+        buffer = []
         n = self
         while n.next != None:
-            b = n
-            while b.next ==None:
-                if b.next.data == n.data:
-                    n.pop(b.next.data)
-                    b.pop(b.next.data)
-                b = b.next
+            if not(n.next.data in buffer):
+                buffer.append(n.next.data)
+                n = n.next
+            else :
+                n.next = n.next.next
+        return
+
+    def toset(self):
+        n = self.next
+        while n.next != None:
+            b = self
+            switch = False
+            while b.next != None:
+                if b.next.data == n.data and switch ==True:
+                    b.next = b.next.next
+                elif b.next.data == n.data and switch ==False:
+                    switch = True
+                    b = b.next
+                else:
+                    b = b.next
             n = n.next
-        
-             
+        return
+
+    def size(self):
+        n = self
+        l = []
+        while n.next!=None:
+            n = n.next
+            l.append(n.data)
+        return len(l)
+
+    def find(self,k):
+        l = self.size()
+        ind = 0
+        n = self
+        while ind != l-k:
+            n = n.next
+            ind+=1
+        return n.next.data
+
+    def find2(self,k):
+        buffer = []
+        n = self
+        while n.next!=None:
+            if len(buffer)==k:
+                _ = buffer.pop(0)
+            buffer.append(n.next.data)
+            n = n.next
+        return buffer.pop(0)
+
+    def separ(self,num):
+        n = self
+        b = Node()1
+        while n.next!=None:
+            if n.next.data>=num:
+                b.append(n.next.data)
+                n.next = n.next.next
+            else:
+                n = n.next
+        n.next = b.next
+        return 
