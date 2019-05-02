@@ -28,7 +28,7 @@ class Node:
         print("->".join(map(str,l)))
         return
 
-    def toset1(self):
+    def toset1(self):#2.1-1
         buffer = []
         n = self
         while n.next != None:
@@ -39,7 +39,7 @@ class Node:
                 n.next = n.next.next
         return
 
-    def toset(self):
+    def toset(self):#2.1-2
         n = self.next
         while n.next != None:
             b = self
@@ -55,7 +55,7 @@ class Node:
             n = n.next
         return
 
-    def size(self):
+    def size(self):#2.2-1_1
         n = self
         l = []
         while n.next!=None:
@@ -63,7 +63,7 @@ class Node:
             l.append(n.data)
         return len(l)
 
-    def find(self,k):
+    def find(self,k):#2.2-1_2
         l = self.size()
         ind = 0
         n = self
@@ -72,7 +72,7 @@ class Node:
             ind+=1
         return n.next.data
 
-    def find2(self,k):
+    def find2(self,k):#2.2-2
         buffer = []
         n = self
         while n.next!=None:
@@ -82,7 +82,7 @@ class Node:
             n = n.next
         return buffer.pop(0)
 
-    def separ(self,num):
+    def separ(self,num):#2.4
         n = self
         b = Node()1
         while n.next!=None:
