@@ -145,7 +145,6 @@ class Node:
                 if r!=1:
                     if n.next.data==l.pop():
                         n = n.next
-                        pass
                     else:
                         return False
                 else:
@@ -167,7 +166,7 @@ class Node:
             
 def sum_Linkedlist(a,b):
     if type(a)!=type(Node()) or type(b)!=type(Node()):
-        return ValueError
+        raise ValueError
     n = Node()
     liftNum=0
     while a.next and b.next:
@@ -179,13 +178,6 @@ def sum_Linkedlist(a,b):
         if b.next:
             b = b.next
     return n
-
-
-def find3(n,k,j=0):
-    if k!=j:
-        return find3(n,k,j+1)
-    else:
-        return n.data
 
 def intersection0(a,b):
     buffer = []
