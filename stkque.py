@@ -117,14 +117,26 @@ class SetOfStacks():
         self.topN = n
         self.top = None
     def push(self,data):
-        if self.next.size%100==0:
+        if self.next.size%5==0:
             addData = StackNode()
             addData.push(data)
-            self.topN.top.next =addData.next
+            addData.top.next=self.topN.top
             self.topN = addData
             self.top = addData.top
         else:
             self.topN.push(data)
-            self.top = self.top.next
+            self.top = self.topN.top
     def pop(self):
-        self.topN.pop()
+        Res = self.topN.top.data
+        self.topN.top = self.topN.top.next
+        self.top = self.topN.top
+        return Res
+
+    def peek(self):
+        return self.top.data
+
+    def isEmpty(self):
+        if self.top==None:
+            return True
+        else:
+            return False
