@@ -1,5 +1,5 @@
 #5.1 / 2진수 형태로 입력받아서 연산후 2진법형태로 출력
-'''
+
 n = int(input("N:"),2)
 m = int(input("M:"),2)
 i = int(input("i:"))
@@ -9,10 +9,9 @@ n = (n>>j)<<j
 m = m<<i
 n = n+m+n1
 print(bin(n)[2:])
-'''
 
 #5.2 1번째버젼
-'''
+
 n = float(input())
 check = 1
 s = "0."
@@ -28,9 +27,8 @@ if len(s)<=32:
     print(s)
 else:
     print("ERROR")
-'''
 
-'''
+   
 #5.2 ver_2
 n = float(input())
 if n*2**32%1!=0:
@@ -42,10 +40,8 @@ else:
         s+=str(n//1)
         n = n%1
     print(s)
-'''
 
 
-'''
 #5.3
 n = input()
 try:
@@ -72,10 +68,8 @@ for i in range(len(bn)-1,-1,-1):
         max = abs(start -fin+1)
 print(max)
 print(bn)
-'''
 
 #5.4(64bit기준)
-'''
 n = int(input())
 count = 0
 while n!=0:
@@ -88,8 +82,7 @@ print(bin(max))
 print(max)
 print(bin(min))
 print(min)
-'''
-"""
+
 #5.5
 n = int(input())
 n2 = n-1
@@ -110,9 +103,8 @@ print("result = ",int("".join(result),2))
 result = int("".join(result),2)
 print(result==0,end=" ")
 print("즉 2의 k승일때만 True")
-"""
+
 #5.6
-"""
 a,b = input().split(",")
 try:
     a = int(a,2)
@@ -133,7 +125,6 @@ for i in range(len(ba)):
     if ba[i]!=bb[i]:
         count += 1
 print(count)
-"""
 
 #5.7
 n = int(input())
@@ -144,5 +135,3 @@ n1,n2 = n1<<1,n2>>1
 n = n1|n2
 print(n)
 
-#5.8
-###????????????????????
