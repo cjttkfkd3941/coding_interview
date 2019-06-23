@@ -77,7 +77,7 @@ while n!=0:
         count +=1
     n = n>>1
 min = int("1"*count,2)
-max = min<<(65-count)#근데 int 63bit가 숫자고 1비트는 부호인데 그 값들을 다넘기는지,65로 해도 변환하면 됨...뭐지...
+max = min<<(63-count)#근데 int 63bit가 숫자고 1비트는 부호인데 그 값들을 다넘기는지,65로 해도 변환하면 됨...뭐지...
 print(bin(max))
 print(max)
 print(bin(min))
