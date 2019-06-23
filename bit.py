@@ -48,10 +48,10 @@ try:
     n=int(n,2)
 except:
     n =int(n)
-bn = "00"+bin(n)[2:]
-start=len(bn)
-mid=len(bn)
-fin=len(bn)
+bn = "00"+bin(n)[2:]+"00"
+start=len(bn)+1
+mid=len(bn)+1
+fin=len(bn)+1
 max = 0
 for i in range(len(bn)-1,-1,-1):
     if bn[i]=="0":
@@ -66,8 +66,11 @@ for i in range(len(bn)-1,-1,-1):
             start = i
     if max<abs(start-fin+1):
         max = abs(start -fin+1)
+if n==0:
+    max = 1
 print(max)
 print(bn)
+
 
 #5.4(64bit기준)
 n = int(input())
