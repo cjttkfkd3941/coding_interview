@@ -73,7 +73,9 @@ def func5(a,b):
 
     
 
-class hanoi():
+
+class Hanoi():
+    cnt = 0
     def __init__(self,n):
         self.num = n
         self.stack1 = deque(list(range(n,0,-1)))
@@ -83,6 +85,7 @@ class hanoi():
         if k==1:
             ring = give.pop()
             take.append(ring)
+            Hanoi.cnt +=1
         else:
             self.move(give,remain,take,k-1)
             self.move(give,take,remain,1)
@@ -131,7 +134,7 @@ func5(a,b)
 #func6
 
 n = int(input())
-x = hanoi(n)
+x = Hanoi(n)
 print("Before")
 x.print()
 before = time.time()
@@ -140,6 +143,7 @@ after  = time.time()
 print("after")
 x.print()
 print(after-before)#22개부터1초넘어가고 대략 1개당 2배늘어남
+print(f"이동횟수{Hanoi.cnt}")
 
 #func7
 
