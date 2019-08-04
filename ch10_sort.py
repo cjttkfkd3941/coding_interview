@@ -50,7 +50,7 @@ def quick_sort(l=list()):
     res = [num]
     res = s_left+res+s_right
     return res
-
+#요구조건 충족 못하는 코드
 def func1(l1,l2):
     l = []
     while l1 and l2:
@@ -62,8 +62,26 @@ def func1(l1,l2):
             l2 = l2[1:]
     l += l1+l2
     return l
+    '''
 
-def func2(strings=['abc']):#깔끔하게 푸는법을 모르겠음.
+
+def func1(a,b):#수정변경
+    a_point,b_point = len(a)-len(b)-1,len(b)-1
+    t_point = len(a)-1
+    while a_point!=-1 and b_point!=-1:
+        if a[a_point]>b[b_point]:
+            a[t_point] = a[a_point]
+            a[a_point] = 0
+            a_point -= 1
+        else:
+            a[t_point] = b[b_point]
+            b[b_point] = 0
+            b_point -= 1
+        t_point -= 1
+    a = b[:b_point+1]+a[-t_point:]
+    return a
+
+def func2(strings=['abc']):#깔끔하게 푸는법을 모르겠음...
     table = []
     buffer = []
     for string in strings:
@@ -142,7 +160,12 @@ class Listy():
 def func4(l=Listy(),x=0):
     n = x
     start=0
-    last = n
+    while True:
+        if l.elementAt(n)==-1:
+            last = n
+            break
+        else:
+            n *=2
     while True:
         k = l.elementAt(n)
         if last-start==1:
@@ -154,7 +177,7 @@ def func4(l=Listy(),x=0):
             n = (start+last)//2
         elif k<x:
             start = n
-            n = last+start
+            n = (last+start)//2
         elif k>x:
             last = n
             n = (start+last)//2
@@ -162,7 +185,8 @@ def func4(l=Listy(),x=0):
 
 #print(func1([1,3,7,10],[2,5,8,9]))
 #print(func3([15,16,19,20,25,1,3,4,5,7,10,14],5))
-a = Listy([1,3,5,9,10])
+#a = Listy([1,1,1,1,2,2,2,3,4,4,4,4,4,5,6,7,9,10])
+#print(f"listy{func4(a,5)}")
 #print(func4(a,7))
 strings = ["abc","bac","cab","adb","adv","cdv","dvc"]
 print(func2(strings))
@@ -171,11 +195,12 @@ import unittest
 class Test(unittest.TestCase):
   def test_sort(self):
     array = [1,3,2,4,5,9,7,8,6]
+    a = Listy([1,3,5,9,10])
     self.assertEqual(bubble_sort(array), sorted(array))
     self.assertEqual(selection_sort(array), sorted(array))
     self.assertEqual(merge_sort(array), sorted(array))
     self.assertEqual(quick_sort(array), sorted(array))
-    self.assertEqual(func1([1,3,7,10],[2,5,8,9]),[1,2,3,5,7,8,9,10])
+    self.assertEqual(func1([1,3,7,10,0,0,0,0],[2,5,8,9]),[1,2,3,5,7,8,9,10])
     self.assertEqual(func3([15,16,19,20,25,1,3,4,5,7,10,14],5),8)
     self.assertEqual(func4(a,1),0)
     self.assertEqual(func4(a,2),False)
