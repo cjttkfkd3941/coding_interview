@@ -50,6 +50,8 @@ def quick_sort(l=list()):
     res = [num]
     res = s_left+res+s_right
     return res
+
+'''
 #요구조건 충족 못하는 코드
 def func1(l1,l2):
     l = []
