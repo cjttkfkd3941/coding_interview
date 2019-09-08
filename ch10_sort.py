@@ -345,7 +345,9 @@ def func9(l,number = 0):
 
 
 #10번
-#priority queue 로 구현가능하긴함
+#priority queue 로 구현가능하긴함(불가능함
+#priority queue 는 heap형태라서 이분탐색 안됨
+#priority queue 를 원하는 숫자를 추출하는데 log n 되게 추출이 가능한가?(불가능한거같음)
 ################################################
 #priority Queue Version(logn)(heap)
 from queue import PriorityQueue
