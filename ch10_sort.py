@@ -181,32 +181,32 @@ def func4(l=Listy(),x=0):
             last = n
             n = (start+last)//2
 
-def func5(word,l):
+def func5(word,l):#고쳐라예준아
     last = len(l)-1
     start = 0
     index = (start+last)//2
     switch = 1
-    befstart,beflast = "",""
+    befword,bbefword = "",""
     while l[index]!=word:
-        #print(index,end=" ")
+        print(index,end=" ")
         if l[index]=="":
             index -= 1*switch
-        else:#value 자체가 리스트에 존재하지 않는경우는?
-            if last==beflast and start==befstart:
+        else:#value 자체가 리스트에 존재하지 않는경우는?해결 but 이 경우 많은 탐색을 함
+            if bbefword == l[index]:
                 return "Not Exist"
+            bbefword = befword
+            befword = l[index]
             if l[index]<word:
-                befstart = start
                 start = index
                 index = (last+start)//2
                 switch *= -1
             else:
-                beflast = last
                 last = index
                 index = (last+start)//2
                 switch *= -1
     return index
-print("func5",end = " ")
-print(func5("abc",["abc","","","","ball","","","carry"]))
+# print("func5",end = " ")
+# print(func5("balls",["abc","","","","ball","","","carry"]))
 
 def func6(string,longs = 200000000000):
     #1GB씩 16개로 나눠서 각각을 정렬한후, 정렬된 문자쌍 두개를 서로 작은것부터 저장(mergesort하듯이) 
@@ -216,27 +216,29 @@ def func6(string,longs = 200000000000):
     #20GB = 200000000000Byte = 4 * 4 * 1250000000(AScii)
     #근데 전부 global 선언해버리면 공간 낭비 개심한데 어떻게 로컬로 적정하고할당해주지...?
 
-    if longs%32 != 0:
-        return "Only multiples of 32" 
-    long = longs//16
-    for i in range(15):
+    # if longs%32 != 0:
+    #     return "Only multiples of 32" 
+    long = longs//16 
+    for i in range(15):#20GB스트링을 1.25GB 16개로 만듬(but 16의 배수가 아닌경우 15개는 크기가 같지만 마지막 만 크기가 다름)
         s = string[i*long:(i+1)*long]
         globals()["string{}".format(i)] = "".join(map(chr,merge_sort(list(map(ord,s)))))
-    else:
+    else:#마지막 16번째 스트링
         s = string[long*15:]
         globals()["string{}".format(15)] = "".join(map(chr,merge_sort(list(map(ord,s)))))
     k = 8
     while k!=0:
         for i in range(k):
-            a = locals()["string"+str(2*i)]
-            b = locals()["string"+str(2*i+1)]
+            a = globals()["string"+str(2*i)]
+            b = globals()["string"+str(2*i+1)]
             destination = 16//k
             #print(a)
             #print(b)
-            
-            for n in range(16//k):
+            for n in range(16//k -1):#정렬된 스트링을 625MB로 만듬. 이렇게 해서 정렬된 스트링들 정렬되게 합침
                 globals()["a{}".format(n)] = a[(long//2)*n:(long//2)*(n+1)]
                 globals()["b{}".format(n)] = b[(long//2)*n:(long//2)*(n+1)]
+            else:
+                globals()["a{}".format(16//k-1)] = a[(long//2)*(16//k-1):]
+                globals()["b{}".format(16//k-1)] = b[(long//2)*(16//k-1):]
             astart = 0
             bstart = 0
             aindex = 0
@@ -244,7 +246,7 @@ def func6(string,longs = 200000000000):
             temp = ""
             sol = ""
             while astart!=destination and bstart!=destination:
-                if aindex!=long//2 and bindex!=long//2:
+                if aindex!=len(globals()["a{}".format(astart)]) and bindex!=len(globals()["b{}".format(bstart)]):#원래long//2
                     if (globals()["a{}".format(astart)])[aindex]<(globals()["b{}".format(bstart)])[bindex]:
                         temp += (globals()["a{}".format(astart)])[aindex]
                         aindex += 1
@@ -254,10 +256,10 @@ def func6(string,longs = 200000000000):
                 else:
                     sol += temp
                     temp = ""
-                    if aindex==long//2:
+                    if aindex==len(globals()["a{}".format(astart)]):
                         aindex = 0
                         astart += 1
-                    if bindex==long//2:
+                    if bindex==len(globals()["b{}".format(bstart)]):
                         bindex = 0
                         bstart +=1
             if astart==destination and aindex==0:
@@ -342,15 +344,87 @@ def func9(l,number = 0):
     return "Can\'t Find"
 
 
-#11번
+#10번
+#priority queue 로 구현가능하긴함
+################################################
+#priority Queue Version(logn)(heap)
+from queue import PriorityQueue
+def find(l,number):
+    start,last = 0,len(l)-1
+    mid= (start+last)//2
+    if l[start]==number:
+        return start
+    if l[last]==number:
+        return last
+    while l[mid]!=number:
+        if l[mid]<number:
+            start = mid
+            mid = (start+last)//2
+        else:
+            last = mid
+            mid = (start+last)//2
+    return mid
+
+# l = PriorityQueue()
+# for i in [5,1,4,4,5,9,7,13,3]:
+#     l.put(i)
+# lst = l.queue
+# print(find(lst,5))
+################################################
+
 #list로 구현한다고 하면,
 #그래도 모르겟는데요ㅠ
-# class Node():
-#     def __init__(self,data = []):
-#         self.data = data
-#         self.long = 0
-#     def track(self,data):
-        
+class qqueue():
+    def __init__(self):
+        self.array = []
+        self.long = 0
+    def track(self,data):
+        last = self.long-1
+        start = 0
+        if self.long == 0:
+            self.array.append(data)
+            self.long+=1
+            return
+        if self.array[start]>data:
+            self.array = [data]+self.array
+            self.long+=1
+            return
+        if self.array[last]<data:
+            self.array = self.array+[data]
+            self.long+=1
+            return
+        while last-start>1 and data!=self.array[(last+start)//2]:
+            if self.array[(last+start)//2]>data:
+                last = (last+start)//2
+            if self.array[(last+start)//2]<data:
+                start = (last+start)//2
+        self.array = self.array[:last]+[data]+self.array[last:]
+        self.long+=1
+        return
+    def getRankOfNumber(self,number):
+        start = 0
+        last = self.long-1
+        while number!=self.array[(last+start)//2]:
+            if last-start<=1:
+                return "Not Exist"
+            if self.array[(last+start)//2]>number:
+                last = (last+start)//2
+            if self.array[(last+start)//2]<number:
+                start = (last+start)//2
+        index = (last+start)//2
+        while self.array[index]==self.array[index+1]:
+            index+=1
+        return index
+
+l = qqueue()
+for i in [5,1,4,4,5,9,7,13,3]:
+    l.track(i)
+print(l.array)
+for i in range(10):
+    print(l.getRankOfNumber(i))
+
+
+
 
 # stream = Node()
 # for i in range([5,1,4,4,5,9,7,13,3]):
@@ -429,6 +503,8 @@ def func11(l):
 #print(func2(strings))
 #print(func6("nkgdeochifplambjabcdefghijklmnop",32))
 #print("".join(sorted("nkgdeochifplambjabcdefghijklmnop")))
+print(func6("abcdefghijklmnopabcdefghijklmnopabcdefghijklmnop",48))
+print(func6("hefjbgkldcmai",13))
 import random
 permutation2 = list(range(10))
 permutation2.remove(4)
